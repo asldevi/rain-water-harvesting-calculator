@@ -1,0 +1,84 @@
+<!Doctype html>
+<style>
+body {
+  font-family: system-ui;
+  background: teal;
+  color: black;
+}
+h1{
+  text-align: center
+}
+#caption{
+  color: #A0A0A0;
+}
+
+ul{
+  background-color: black;
+  color: white;
+  font-size: ;
+  line-height: 180%;
+  border-color: black;
+  border-width: 2px;
+  border-style: solid;
+  border-radius: 10px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+}
+#Calculatorlabel{
+  line-height: 10%;
+  text-align: center;
+  text-decoration:underline;
+}
+#hiddenButton{
+  background-color: transparent;
+  border: none;
+}
+</style>
+
+<html>
+<script lang="javascript" src="https://d3js.org/d3.v6.min.js"> </script>
+
+<!-- https://docs.sheetjs.com/-->
+
+<h1>Rainwater Storage Calculator</h1>
+  <h2>Instructions:</h2>
+    <p>The goal of this page is to help calculate an optimum tank size for a given rainwater harvesting sytem. This current version requires an upload of dailyrainfall data. It will only work for a single roof top collection area for a single type of water use. We hope to add a monthly option along with multiple water uses at somepoint as well. Additionally, we hope to store data from rainfall in the Bangalore area, so that it is not neccessary to upload. For now the following is needed:</p>
+    <ol>
+      <li>Daily rainfall data for a year of interest accompanied by the date this was recorded (mm/dd/yyyy format) in an excel file.</li>
+      <li>The collection area of your roof.</li>
+      <li>Either the efficieny of the collection or the type of roof selected from a list.</li>
+      <li>Either information about the population or information about the population and the water demand of the people in this population.</li>
+      <li>The minimum, maximum, and step size of the storage tanks</li>
+      <li>*Any potenial days/days of week or reduced water demand</li>
+    </ol>
+    <p id="caption">*optional</p>
+  <h2>Calculator:</h2>
+    <ul>
+
+      <p id="Calculatorlabel">Please Fill out Each of These Bullets Before Submitting:</p>
+      <li>*Please upload file with daily rainfall data (first collomn has date (mm/dd/yyyy) second has rainfall). <input type="file" id="excelfile"></li>
+      <li>Area of Roof: <input id="area" type="number" onblur="eff()" placeholder="Area of Roof in m^2"> Effective Roof Area (m^2): <span id="Effective Roof area"></span>
+      </li>
+      <li>Efficency of collection (for 90% put .9): <input id="Efficiency" type="number" placeholder="Efficency as a precentage" onblur="eff()"> or
+        <select id="roof type" onchange="rooftoeff(event); eff()">
+          <option value=0.95>Conventional Roof</option>
+          <option value=0.95>Concrete/Kota paving</option>
+          <option value=0.85>Brick paving</option>
+          <option value=0.75>Gravel</option>
+          <option value=0.2>Vegitation: 1-3%</option>
+          <option value=0.25>Vegitation: 3-10%</option>
+          <option value=0.3>Vegitation>10%</option>
+          <option value=0.25>Turf slopes 0-1%</option>
+          <option value=0.35>Turf slopes 1-3%</option>
+          <option value=0.4>Turf slopes 3-10%</option>
+          <option value=0.45>Turf slopes>10%</option>
+          <option selected>Select</option>
+        </select></li>
+       <li>Number of populations with different water demands: <input type="number" id="pop#" onblur="moreoptions()" oninput="undo()"><form id="new pop"></form><button type="button" onClick="dailydem()" id="hiddenButton">Find the daily water demand of populations</button></li>
+       <li>Minimum storage size: <input type="number" placeholder="Cubic meters" id="minstr" onblur='storagesizeoptions()'> and Maximum storage size: <input type="number" placeholder="Cubic meters" id="maxstr" onblur='storagesizeoptions()'> and step size <input type="number" placeholder="Cubic meters" id="step" onblur='storagesizeoptions()'><!--<button onclick="storagesizeoptions()">Store</button>--></li>
+       <!--<li>Is there water being collected for multiple uses? <label for="yes"><input id="yes" type="radio" name="yes/no">Yes </label><label for="no"><input type="radio" name="yes/no">No</label></li>-->
+      <li>*Are there any days of reduced demand? <label for="yes"><input id="yes" type="radio" name="yes/no2">Yes</label><label for="no"><input id="no" type="radio" name="yes/no2">No</label></li>
+      <p>*Not yet operational</p>
+     </ul>
+  <button type="button" onClick="eff(); Upload()">Calculate effective roof area</button>
+  <script src="js/script.js"></script>
+</html>
