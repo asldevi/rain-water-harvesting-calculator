@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rainwater harvesting calculator</title>
+    <script type="text/javascript" src="js/jquery-3.7.1.min.js"></script>
+    <script type="text/javascript" src="js/harvesting-calculations.js"></script>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+    <h2> Rainwater Harvesting Calculator</h2>
+    <!-- https://web.dev/learn/html/details/ -->
+    <details>
+        <summary>
+          Water supply details
+        </summary>
+
+        <div>
+            <!-- @@@TODO: Take city/town/village as input and fetch it from statistical data-->
+            <label for="avg-rainfall">Average rainfall in mm your locality</label>
+            <input type="number" id="avg-rainfall" name="avg-rainfall" value="900"> </input>
+        </div>
+
+        <div>
+            <label for="catchment-area">Details of Catchment area</label>
+            <select id="roof-type-efficiency" name="roof-type-efficiency"> 
+                <!-- @@@TODO: Get complete list of options and correct these options and values-->
+                <option value=0.95>Conventional Roof</option>
+                <option value=0.95>Concrete/Kota paving</option>
+                <option value=0.85>Brick paving</option>
+                <option value=0.75>Gravel</option>
+            </select>
+        </div>
+        <div>
+            <label for="roof-area">Roof area in sq.meters </label>
+            <input type="number" id="roof-area" name="roof-area"> </input>
+        </div>
+        <div>            
+            <label for="paved-area">Paved area in sq.meters </label>
+            <input type="number" id="paved-area" name="paved-area"> </input>
+        </div>
+        <div>
+            <label for="open-area">Open area in sq.meters </label>
+            <input type="number" id="open-area" name="open-area"> </input>
+        </div>
+
+        <button id="calculate-supply"> Show me how much water I can harvest!</button>
+
+
+        <!-- all the hidden stuff to hold values that we need further  -->
+        <div> 
+            <input type="number" hidden id="total-water-in-kld" name="total-water-in-kld" value=0> </input>
+            <input type="number" hidden id="annual-runoff-in-liters" name="annual-runoff-in-liters" value=0> </input>
+        </div>
+
+        <!-- The following will be populated on click of the above button in js -->
+        <div class="output" id="supply-output"> </div>
+        
+      </details>
+
+      <br/>
+
+      <details>
+        <summary>
+          Water Demand details
+        </summary>
+
+        <!-- Population types
+        Water types - A, B. Clean filtered rooftop water is A, stormwater / surface runoff is B. 
+        Calculate expected water consumption over the whole year (KL) from 1 and 2 here. Allow users to override. -->
+
+    <div class="populations">
+        <div>
+            <label for="population-1"> Number of people </label>
+            <input type="number" id="population-1" name="population-type-1"> </input>
+        </div>
+        <div>            
+            <label for="daily-demand-per-capita-1" >Daily water usage per head</label>
+            <input type="number" id="daily-demand-per-capita-1" name="daily-demand-per-capita-1" placeholder="Number of liters"> </input>
+        </div>
+        <br/>
+
+
+    </div>
+        <button id="add-population-types" name="add-population-types" > Add more population types </button>
+        <button id="calculate-water-demand" name="calculate-water-demand" > Calculate Water demand </button>
+        
+    </details>
+    
+    <!-- The following will be populated on click of the above button in js -->
+    <div id="demand-output" class="output"> </div>
+
+    <br/>
+
+      <details>
+        <summary>
+          Rain Water storage details
+        </summary>
+        <p>
+        </p>
+      </details>
+
+
+</body>
+</html>
